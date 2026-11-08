@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QRVault – Your Files. One Scan Away.</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">Q</span>
+            <span>QRVault</span>
+        </div>
+
+        <div class="nav-right">
+            <span class="secure-label">● Secure File Sharing</span>
+        </div>
+
+    </nav>
+
+
+    <main class="hero">
+
+        <div class="badge">
+            ✦ SIMPLE. FAST. SECURE.
+        </div>
+
+        <h1>
+            Your files.<br>
+            <span>One scan away.</span>
+        </h1>
+
+        <p class="subtitle">
+            Upload anything. Generate a QR code.
+            Share your files instantly with anyone, anywhere.
+        </p>
+
+
+        <section class="upload-card" id="uploadCard">
+
+            <div class="upload-icon">↑</div>
+
+            <h2>Drop your files here</h2>
+
+            <p>or click below to browse your device</p>
+
+
+            <form id="csrfForm" hidden>
+                {% csrf_token %}
+            </form>
+
+
+            <input
+                type="file"
+                id="fileInput"
+                multiple
+                hidden
+            >
+
+
+            <!-- Expiry Selection -->
+
+            <div class="expiry-section">
+
+                <label for="expirySelect">
+                    File Expiry
+                </label>
+
+                <select id="expirySelect" class="expiry-select">
+
+                    <option value="1h">
+                        1 Hour
+                    </option>
+
+                    <option value="24h" selected>
+                        24 Hours (Recommended)
+                    </option>
+
+                    <option value="7d">
+                        7 Days
+                    </option>
+
+                </select>
+
+                <small>
+                    Your files will automatically expire after the selected time.
+                </small>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="upload-btn"
+                id="uploadBtn"
+            >
+                Choose Files <span>↗</span>
+            </button>
+
+
+            <div class="file-info">
+                PDF · Images · Videos · Documents · ZIP
+
+                <br><br>
+
+                Maximum 100 MB per file
+            </div>
+
+
+            <div
+                class="selected-files"
+                id="selectedFiles"
+            ></div>
+
+
+            <button
+                type="button"
+                class="upload-btn"
+                id="uploadSubmitBtn"
+                style="display:none;"
+            >
+                Upload Files ↑
+            </button>
+
+
+            <div
+                id="uploadStatus"
+                aria-live="polite"
+            ></div>
+
+        </section>
+
+
+        <!-- Generated QR Results -->
+
+        <section
+            class="qr-results"
+            id="qrResults"
+            style="display:none;"
+        >
+
+            <h2>Your QR Codes</h2>
+
+            <p>Scan or share your generated QR codes.</p>
+
+            <div
+                class="qr-grid"
+                id="qrGrid"
+            ></div>
+
+        </section>
+
+
+        <div class="features">
+
+            <div class="feature">
+                <span>⚡</span>
+                <p>Instant QR Generation</p>
+            </div>
+
+            <div class="feature">
+                <span>🔒</span>
+                <p>Secure File Access</p>
+            </div>
+
+            <div class="feature">
+                <span>📱</span>
+                <p>Scan & Download</p>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        <p>© 2026 QRVault. Your files, your control.</p>
+    </footer>
+
+
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ file.original_name }} - QRVault</title>
+
+    <link rel="stylesheet" href="{% static 'css/file_access.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">Q</span>
+            <span>QRVault</span>
+        </div>
+
+        <span class="secure-label">● Secure File Sharing</span>
+    </nav>
+
+
+    <main class="container">
+
+        {% if expired %}
+
+            <div class="file-card expired-card">
+
+                <div class="file-icon">⌛</div>
+
+                <h1>Link Expired</h1>
+
+                <p>This file is no longer available.</p>
+
+            </div>
+
+        {% else %}
+
+            <div class="badge">✦ FILE READY TO ACCESS</div>
+
+            <h1>Your file.<br><span>Just one click away.</span></h1>
+
+            <div class="file-card">
+
+                <div class="file-icon">📁</div>
+
+                <h2>{{ file.original_name }}</h2>
+
+                <div class="file-details">
+
+                    <div>
+                        <span>File Size</span>
+                        <strong>{{ file_size }}</strong>
+                    </div>
+
+                    <div>
+                        <span>File Type</span>
+                        <strong>{{ file_type }}</strong>
+                    </div>
+
+                </div>
+
+
+                {% if preview_url %}
+
+                    <div class="preview-container">
+
+                        {% if is_image %}
+
+                            <img
+                                src="{{ preview_url }}"
+                                alt="File Preview"
+                                class="image-preview"
+                            >
+
+                        {% elif is_pdf %}
+
+                            <iframe
+                                src="{{ preview_url }}"
+                                class="pdf-preview"
+                                title="PDF Preview"
+                            ></iframe>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endif %}
+
+
+                <a href="{% url 'file_download' file.id %}"
+                   class="download-btn">
+
+                    Download File ↓
+
+                </a>
+
+                <p class="expiry-info">
+                    Available until {{ file.expires_at|date:"d M Y, h:i A" }}
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+
+    <footer>
+        © 2026 QRVault. Your files, your control.
+    </footer>
+
+</body>
+</html>
